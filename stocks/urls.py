@@ -9,6 +9,8 @@ urlpatterns = [
     path('minutely/<str:ticker>/', views.minutely, name='minute'),
     path('hourly', views.hourly_all, name='hourly_all'),
     path('hourly/<str:ticker>/', views.hourly, name='hourly'),
+    path('monthly', views.monthly_all, name='monthly_all'),
     path('monthly/<str:ticker>/', views.monthly, name='monthly'),
+    path('yearly', views.yearly_all, name='yearly_all'),
     path('yearly/<str:ticker>/', views.yearly, name='yearly'),
 ]

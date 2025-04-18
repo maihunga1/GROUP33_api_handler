@@ -6,6 +6,8 @@ import json
 from .utils.daily_data import to_json_daily
 from .utils.hourly_data import to_json_hourly
 from .utils.minutely_data import to_json_minutely
+from .utils.monthly_data import to_json_monthly
+from .utils.yearly_data import to_json_yearly
 
 
 
@@ -62,10 +64,30 @@ def minutely(request, ticker):
     return JsonResponse(data, safe=False)
 
 
+def monthly_all(request):
+    monthly_data = {}
+
+    for ticker in tickers:
+        data = to_json_monthly(ticker)
+        if data and ticker in data:
+            monthly_data[ticker] = data[ticker]["monthly"]
+
+    return JsonResponse(monthly_data, safe=False)
+
 def monthly(request, ticker):
-    data = get_stock_data(ticker, "1mo", "1y")
+    data = get_stock_data(ticker, "1mo", "2y")
     return JsonResponse(data, safe=False)
 
+def yearly_all(request):
+    yearly_data = {}
+
+    for ticker in tickers:
+        data = to_json_yearly(ticker)
+        if data and ticker in data:
+            yearly_data[ticker] = data[ticker]["yearly"]
+
+    return JsonResponse(yearly_data, safe=False)
+
 def yearly(request, ticker):
-    data = get_stock_data(ticker, "1d", "1y")
+    data = get_stock_data(ticker, "3mo", "15y")
     return JsonResponse(data, safe=False)
